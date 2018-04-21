@@ -37,6 +37,7 @@ def build_and_test_and_package(args, job):
 
     # Now run build
     cmd = [
+        'powershell', '-Command',
         args.colcon_script, 'build',
         '--base-paths', '"%s"' % args.sourcespace,
         '--build-base', '"%s"' % args.buildspace,
@@ -69,6 +70,7 @@ def build_and_test_and_package(args, job):
         env = dict(os.environ)
         env['MAKEFLAGS'] = '-j1'
         job.run([
+            'powershell', '-Command',
             args.colcon_script, 'build',
             '--base-paths', '"%s"' % args.sourcespace,
             '--build-base', '"%s"' % args.buildspace,
@@ -91,6 +93,7 @@ def build_and_test_and_package(args, job):
             print('# BEGIN SUBSECTION: test ROS 1 bridge')
             # Now run test only for the bridge
             ret_test = job.run([
+                'powershell', '-Command',
                 args.colcon_script, 'test',
                 '--base-paths', '"%s"' % args.sourcespace,
                 '--build-base', '"%s"' % args.buildspace,

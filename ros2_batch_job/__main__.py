@@ -258,6 +258,7 @@ def build_and_test(args, job):
 
     print('# BEGIN SUBSECTION: build')
     cmd = [
+        'powershell', '-Command',
         args.colcon_script, 'build',
         '--base-paths', '"%s"' % args.sourcespace,
         '--build-base', '"%s"' % args.buildspace,
@@ -295,6 +296,7 @@ def build_and_test(args, job):
 
     print('# BEGIN SUBSECTION: test')
     ret_test = job.run([
+        'powershell', '-Command',
         args.colcon_script, 'test',
         '--base-paths', '"%s"' % args.sourcespace,
         '--build-base', '"%s"' % args.buildspace,
@@ -349,6 +351,7 @@ def run(args, build_function, blacklisted_package_names=None):
     args.buildspace = 'build space' if 'buildspace' in args.white_space_in else 'build'
     args.installspace = 'install space' if 'installspace' in args.white_space_in else 'install'
 
+    os.environ['COLCON_EXTENSION_BLACKLIST'] = 'colcon_core.shell.bat'
     os.environ['COLCON_LOG_PATH'] = os.path.join(os.getcwd(), args.workspace, 'log')
 
     if args.disable_connext_static:
