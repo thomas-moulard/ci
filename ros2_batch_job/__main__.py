@@ -126,6 +126,7 @@ def main(sysargv=None):
             ]
     if sys.platform.lower().startswith('linux') and platform.linux_distribution()[2] == 'xenial':
         blacklisted_package_names += [
+            'image_tools_py',
             'qt_gui_cpp',
             'rqt_gui_cpp',
         ]
