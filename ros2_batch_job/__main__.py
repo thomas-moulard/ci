@@ -127,8 +127,7 @@ def main(sysargv=None):
     if sys.platform.lower().startswith('linux') and platform.linux_distribution()[2] == 'xenial':
         blacklisted_package_names += [
             'image_tools_py',
-            'qt_gui_cpp',
-            'rqt_gui_cpp',
+            'qt_dotgraph',
         ]
     return run(args, build_function, blacklisted_package_names=blacklisted_package_names)
 
@@ -402,7 +401,9 @@ def run(args, build_function, blacklisted_package_names=None):
         remove_folder(os.path.join(args.workspace, 'build'))
         remove_folder(os.path.join(args.workspace, 'install'))
     else:
-        remove_folder(args.workspace)
+        # temporary keep the workspace (actually the logs) on Windows
+        if args.os != 'windows':
+            remove_folder(args.workspace)
     if not os.path.isdir(args.workspace):
         os.makedirs(args.workspace)
 
